@@ -1,0 +1,26 @@
+@startuml
+hide footbox
+participant ":Main" as Main
+participant ":FindCommand" as FC
+participant ":EventList" as EL
+participant "event :Event" as E
+
+Main -> FC: execute()
+activate FC
+FC -> EL: getEventByName(eventName)
+activate EL
+EL --> FC: return event
+deactivate EL
+
+opt Event found
+    FC -> E: findParticipants(personName)
+    activate E
+    E --> FC: return participantList: ArrayList<Participant>
+    deactivate E
+
+end opt
+
+FC --> Main: Display participantList and search result message
+deactivate FC
+
+@enduml
